@@ -12,6 +12,8 @@ contract BasicsFunctions{
         uint supply;                                                                                    
     }
 
+    mapping(address => Coin) internal myCoins;
+
     function guessNumber(uint _guess) public pure returns (bool){
         if(_guess == 4){
             return true;
@@ -21,7 +23,7 @@ contract BasicsFunctions{
         }
     }
 
-    function getMyCoin() public view returns (string memory){
+    function getCoinName() public view returns (string memory){
         return coinName;
     }
 
@@ -37,5 +39,13 @@ contract BasicsFunctions{
             }
         }
         return 99999;
+    }
+
+    function addCoin(string memory _name, string memory _symbol, uint _supply) external{
+        myCoins[msg.sender] = Coin(_name, _symbol, _supply);
+    }
+
+    function getMyCoin() public view returns (Coin memory) {
+        return myCoins[msg.sender];
     }
 }
