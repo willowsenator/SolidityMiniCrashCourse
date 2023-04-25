@@ -28,4 +28,14 @@ contract BasicsFunctions{
     function multiply(uint _factor) external {
         myBalance *= _factor;
     }
+
+    function findCoinIndex(string[] memory _myCoins, string memory _find, uint _startFrom) public pure returns (uint) {
+        for(uint i = _startFrom; i < _myCoins.length; i++){
+            string memory _myCoin = _myCoins[i];
+            if(keccak256(abi.encodePacked(_myCoin)) == keccak256(abi.encodePacked(_find))){
+                return i;
+            }
+        }
+        return 99999;
+    }
 }
